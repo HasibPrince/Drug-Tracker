@@ -19,7 +19,7 @@ class SignupViewModel @Inject constructor(private val loginRepository: LoginRepo
     val password = MutableStateFlow("")
 
 
-    val signupState = MutableStateFlow<UIState>(UIState.Idle)
+    val signupState = MutableStateFlow<UIState<String>>(UIState.Idle)
 
     fun signUp() {
         viewModelScope.launch {

@@ -1,8 +1,8 @@
 package com.hasib.startup.ui
 
-sealed class UIState {
-    object Idle : UIState()
-    object Loading : UIState()
-    data class Success(val email: String) : UIState()
-    data class Error(val message: String) : UIState()
+sealed class UIState<out T> {
+    object Idle : UIState<Nothing>()
+    object Loading : UIState<Nothing>()
+    data class Success<out T>(val data: T) : UIState<T>()
+    data class Error<out T>(val message: String) : UIState<T>()
 }

@@ -46,7 +46,7 @@ fun LoginPage(
                     modifier = Modifier
                         .size(100.dp)
                         .padding(16.dp),
-                    color = Color(0xFF007BFF) // Blue color
+                    color = Color(0xFF007BFF)
                 )
             }
 
@@ -104,7 +104,7 @@ fun LoginPage(
 
 @Composable
 private fun HandleError(
-    loginState: UIState,
+    loginState: UIState<String>,
     loginViewModel: LoginViewModel
 ) {
     val errorMessage = (loginState as UIState.Error).message

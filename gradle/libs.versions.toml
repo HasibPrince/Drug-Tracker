@@ -13,6 +13,7 @@ libphonenumber = "8.13.0"
 hilt = "2.51.1"
 navigationCompose = "2.8.6"
 hiltNavigationCompose = "1.2.0"
+retrofit = "2.9.0"
 room = "2.6.1"
 timber = "5.0.1"
 mockitoKotlin = "4.1.0"
@@ -49,6 +50,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 libphonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version.ref = "libphonenumber" }
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }

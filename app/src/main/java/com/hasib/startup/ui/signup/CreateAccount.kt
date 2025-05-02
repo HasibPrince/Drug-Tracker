@@ -106,7 +106,7 @@ fun CreateAccountScreen(
 
 @Composable
 private fun HandleError(
-    signUpState: UIState,
+    signUpState: UIState<String>,
     signupViewModel: SignupViewModel
 ) {
     val errorMessage = (signUpState as UIState.Error).message
