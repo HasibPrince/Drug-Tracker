@@ -1,5 +1,6 @@
 package com.hasib.startup.ui.details
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -32,6 +34,7 @@ fun MedicationDetailsPage(
     onBack: () -> Unit = {},
 ) {
     val detailsData by detailsViewModel.fetchDetails(conceptProperty.rxcui).collectAsState()
+    val medicationAddedState by detailsViewModel.medicationAddedState
 
     Scaffold(
         topBar = {
@@ -71,8 +74,7 @@ fun MedicationDetailsPage(
 
                 Card(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Color.White),
+                        .fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
                     colors = CardDefaults.cardColors(containerColor = Color.White),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -146,6 +148,13 @@ fun MedicationDetailsPage(
                             UIState.Idle -> {}
                         }
 
+                        if (medicationAddedState.isNotEmpty()) {
+                            Toast.makeText(
+                                LocalContext.current,
+                                medicationAddedState,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
                     }
                 }
@@ -159,7 +168,7 @@ fun MedicationDetailsPage(
                     .align(Alignment.BottomCenter)
             ) {
                 Button(
-                    onClick = { },
+                    onClick = { detailsViewModel.addUserMedication(conceptProperty) },
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(16.dp),

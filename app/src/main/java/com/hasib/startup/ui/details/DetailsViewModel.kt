@@ -1,9 +1,12 @@
 package com.hasib.startup.ui.details
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.data.model.RxTermsResponse
 import com.hasib.startup.data.repositories.DrugRepository
+import com.hasib.startup.data.repositories.UserMedicationRepository
 import com.hasib.startup.domian.model.Result
 import com.hasib.startup.domian.model.isSuccess
 import com.hasib.startup.ui.UIState
@@ -13,10 +16,17 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel @Inject constructor(private val drugRepository: DrugRepository) : ViewModel() {
+class DetailsViewModel @Inject constructor(
+    private val drugRepository: DrugRepository,
+    private val userMedicationRepository: UserMedicationRepository
+) : ViewModel() {
+
+    private val _medicationAddedState = mutableStateOf("")
+    val medicationAddedState = _medicationAddedState
 
     fun fetchDetails(rxcui: String): StateFlow<UIState<RxTermsResponse>> {
         return flow<UIState<RxTermsResponse>> {
@@ -32,5 +42,16 @@ class DetailsViewModel @Inject constructor(private val drugRepository: DrugRepos
             started = SharingStarted.WhileSubscribed(),
             initialValue = UIState.Idle
         )
+    }
+
+    fun addUserMedication(conceptProperty: ConceptProperty) {
+        viewModelScope.launch {
+            val status = userMedicationRepository.addUserMedication(conceptProperty)
+            if (status.isSuccess()) {
+                medicationAddedState.value = "Medication added successfully"
+            } else {
+                medicationAddedState.value = (status as Result.Error).e.message ?: "UnknownError"
+            }
+        }
     }
 }
