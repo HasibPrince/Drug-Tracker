@@ -6,6 +6,18 @@ sealed class Result<out T> {
     class Error(val e: Throwable) : Result<Nothing>()
 }
 
+fun Result<*>.isSuccess(): Boolean {
+    return this is Result.Success
+}
+
+fun Result<*>.getErrorMessage(): String? {
+    return if (this is Result.Error) {
+        e.message
+    } else {
+        null
+    }
+}
+
 fun <T> Result<T>.doOnLoading(block: () -> Unit) {
     if (this is Result.Loading) {
         block()

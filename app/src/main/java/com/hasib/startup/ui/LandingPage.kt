@@ -34,7 +34,7 @@ fun OnboardingScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
+            .padding(0.dp)
             .background(Color(0xFFE6F0FF)) // Light blue background
     ) {
         Column(

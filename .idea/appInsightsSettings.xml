@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.hasib.drugtracker" />
+                  <option name="mobileSdkAppId" value="1:267059422276:android:e1a59eb781910fec7f4811" />
+                  <option name="projectId" value="guess-who-it-is" />
+                  <option name="projectNumber" value="267059422276" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

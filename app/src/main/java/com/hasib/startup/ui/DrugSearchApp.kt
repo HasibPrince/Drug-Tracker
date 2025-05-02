@@ -5,6 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.hasib.startup.ui.login.LoginPage
+import com.hasib.startup.ui.login.LoginViewModel
+import com.hasib.startup.ui.signup.CreateAccountScreen
+import com.hasib.startup.ui.signup.SignupViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -15,6 +20,9 @@ object Login
 
 @Serializable
 object Signup
+
+@Serializable
+object MedicationList
 
 @Composable
 fun AppContainer(innerPadding: PaddingValues) {
@@ -29,11 +37,21 @@ fun AppContainer(innerPadding: PaddingValues) {
         }
 
         composable<Login> {
-            LoginPage(innerPadding)
+            val loginViewModel: LoginViewModel = hiltViewModel()
+            LoginPage(innerPadding, loginViewModel) {
+                navController.navigate(MedicationList)
+            }
         }
 
         composable<Signup> {
-            CreateAccountScreen(innerPadding)
+            val signupViewModel: SignupViewModel = hiltViewModel()
+            CreateAccountScreen(innerPadding, signupViewModel) {
+                navController.navigate(MedicationList)
+            }
+        }
+
+        composable<MedicationList> {
+            MedicationListPage()
         }
     }
 }
