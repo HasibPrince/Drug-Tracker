@@ -6,8 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.hasib.startup.ui.landing.OnboardingScreen
 import com.hasib.startup.ui.login.LoginPage
 import com.hasib.startup.ui.login.LoginViewModel
+import com.hasib.startup.ui.medicationList.MedicationListPage
 import com.hasib.startup.ui.signup.CreateAccountScreen
 import com.hasib.startup.ui.signup.SignupViewModel
 import kotlinx.serialization.Serializable
@@ -33,20 +35,34 @@ fun AppContainer(innerPadding: PaddingValues) {
                 navController.navigate(Login)
             }, {
                 navController.navigate(Signup)
+            }, {
+                navController.navigate(MedicationList) {
+                    popUpTo(Landing) {
+                        inclusive = true
+                    }
+                }
             })
         }
 
         composable<Login> {
             val loginViewModel: LoginViewModel = hiltViewModel()
             LoginPage(innerPadding, loginViewModel) {
-                navController.navigate(MedicationList)
+                navController.navigate(MedicationList) {
+                    popUpTo(Landing) {
+                        inclusive = true
+                    }
+                }
             }
         }
 
         composable<Signup> {
             val signupViewModel: SignupViewModel = hiltViewModel()
             CreateAccountScreen(innerPadding, signupViewModel) {
-                navController.navigate(MedicationList)
+                navController.navigate(MedicationList) {
+                    popUpTo(Landing) {
+                        inclusive = true
+                    }
+                }
             }
         }
 

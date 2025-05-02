@@ -1,4 +1,4 @@
-package com.hasib.startup.ui
+package com.hasib.startup.ui.landing
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,14 +23,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.google.firebase.auth.FirebaseAuth
 import com.hasib.startup.R
 
 @Composable
 fun OnboardingScreen(
     innerPadding: PaddingValues,
     onNavigationToLogin: () -> Unit,
-    onNavigationToSignup: () -> Unit
+    onNavigationToSignup: () -> Unit,
+    onNavigationToMedicationList: () -> Unit
 ) {
+    FirebaseAuth.getInstance().currentUser?.let { user ->
+        onNavigationToMedicationList()
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
