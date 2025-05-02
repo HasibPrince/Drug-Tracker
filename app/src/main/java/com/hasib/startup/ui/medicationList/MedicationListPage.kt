@@ -1,6 +1,7 @@
 package com.hasib.startup.ui.medicationList
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.hasib.startup.R
 
 @Composable
-fun MedicationListPage() {
+fun MedicationListPage(onNavigationToMedicationSearch: () -> Unit) {
     val medicines = List(4) { "Medicine 1" } // Sample data
 
     Scaffold(
@@ -43,7 +44,7 @@ fun MedicationListPage() {
                 contentAlignment = Alignment.Center
             ) {
                 TextButton(
-                    onClick = { /* Handle click */ },
+                    onClick = { onNavigationToMedicationSearch() },
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null, tint = Color(0xFF007BFF))
                     Spacer(modifier = Modifier.width(4.dp))
@@ -69,13 +70,15 @@ fun MedicationListPage() {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                        .padding(vertical = 2.dp),
                     shape = RoundedCornerShape(12.dp),
                     elevation = CardDefaults.cardElevation(2.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
+                            .background(Color(0xFFFFFFFF))
+                            .fillMaxWidth()
                             .padding(12.dp)
                     ) {
                         Image(
