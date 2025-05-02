@@ -1,4 +1,4 @@
-package com.hasib.startup.ui.medicationSearch
+package com.hasib.startup.ui.medicationPage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -26,6 +26,9 @@ class SearchMedicationViewModel @Inject constructor(private val drugRepository: 
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
+
+    var lastSearchQuery: String = ""
+    var lastSearchResults: UIState<List<ConceptProperty>> = UIState.Idle
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val filteredMedications: StateFlow<UIState<List<ConceptProperty>>> = _searchQuery
@@ -37,20 +40,30 @@ class SearchMedicationViewModel @Inject constructor(private val drugRepository: 
                     return@flow
                 }
 
+                if (query == lastSearchQuery && lastSearchResults is UIState.Success) {
+                    emit(lastSearchResults)
+                    return@flow
+                }
+
+                lastSearchQuery = query
+                lastSearchResults = UIState.Idle
                 emit(UIState.Loading)
 
                 val result = drugRepository.searchDrugByName(query)
                 if (result.isSuccess()) {
-                    emit(UIState.Success((result as Result.Success).data))
+                    lastSearchResults = UIState.Success((result as Result.Success).data)
+                    emit(lastSearchResults)
                 } else {
-                    emit(UIState.Success(emptyList()))
+                    emit(UIState.Error((result as Result.Error).e.message ?: "Unknown Error"))
                 }
             }
 
         }
+        .distinctUntilChanged()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), UIState.Idle)
 
     fun onSearchQueryChanged(newQuery: String) {
+        if (newQuery == _searchQuery.value) return
         _searchQuery.value = newQuery
     }
 }

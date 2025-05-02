@@ -1,4 +1,4 @@
-package com.hasib.startup.ui.medicationSearch
+package com.hasib.startup.ui.medicationPage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,18 +32,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hasib.startup.R
 import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.ui.UIState
+import com.hasib.startup.ui.AppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchMedicationScreen(
-    viewModel: SearchMedicationViewModel = viewModel(),
+fun MedicationSearchPage(
+    viewModel: SearchMedicationViewModel,
+    onNavigateToDetailsPage: (conceptProperty: ConceptProperty) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
     val searchQuery by viewModel.searchQuery.collectAsState()
@@ -79,14 +82,22 @@ fun SearchMedicationScreen(
                 }
 
                 is UIState.Error -> {
-                    Text("Error: ${(filteredResults as UIState.Error).message}")
+                    Text(
+                        (filteredResults as UIState.Error).message,
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Center
+                        ),
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
                 }
 
                 is UIState.Success -> {
                     val data = (filteredResults as UIState.Success).data
                     LazyColumn {
                         items(data.size) { item ->
-                            MedicationItem(conceptProperty = data[item])
+                            val conceptProperty = data[item]
+                            MedicationItem(conceptProperty = conceptProperty, onNavigateToDetailsPage)
                             Divider()
                         }
                     }
@@ -96,48 +107,6 @@ fun SearchMedicationScreen(
             }
 
         }
-    }
-}
-
-@Composable
-private fun AppBar(onBack: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFFF5F5F9))
-    ) {
-        Row(modifier = Modifier
-            .height(56.dp)
-            .clickable { onBack() }) {
-            Icon(
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .align(Alignment.CenterVertically)
-                    .size(18.dp),
-                painter = painterResource(R.drawable.ic_back),
-                contentDescription = "Back",
-                tint = Color(0xFF007AFF)
-            )
-            Text(
-                "Back",
-                color = Color(0xFF007AFF),
-                modifier = Modifier
-                    .padding(start = 4.dp, end = 16.dp)
-                    .align(Alignment.CenterVertically)
-            )
-        }
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Text(
-            text = "Search Medication",
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 18.sp,
-            color = Color.Black,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(top = 4.dp)
-        )
     }
 }
 
@@ -203,13 +172,13 @@ private fun SearchBar(
 }
 
 @Composable
-fun MedicationItem(conceptProperty: ConceptProperty) {
+fun MedicationItem(conceptProperty: ConceptProperty, onNavigateToDetailsPage: (ConceptProperty) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
             .padding(vertical = 12.dp, horizontal = 12.dp)
-            .clickable { /* handle item click */ },
+            .clickable { onNavigateToDetailsPage(conceptProperty) },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
