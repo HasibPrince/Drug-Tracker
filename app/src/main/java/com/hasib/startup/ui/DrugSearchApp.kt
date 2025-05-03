@@ -16,6 +16,7 @@ import com.hasib.startup.ui.landing.OnboardingScreen
 import com.hasib.startup.ui.login.LoginPage
 import com.hasib.startup.ui.login.LoginViewModel
 import com.hasib.startup.ui.medicationList.MedicationListPage
+import com.hasib.startup.ui.medicationList.MedicationListViewModel
 import com.hasib.startup.ui.medicationPage.MedicationSearchPage
 import com.hasib.startup.ui.medicationPage.SearchMedicationViewModel
 import com.hasib.startup.ui.signup.CreateAccountScreen
@@ -88,7 +89,8 @@ fun AppContainer(innerPadding: PaddingValues) {
         }
 
         composable<MedicationList> {
-            MedicationListPage{
+            val medicationListViewModel: MedicationListViewModel = hiltViewModel()
+            MedicationListPage(medicationListViewModel){
                 navController.navigate(MedicationSearch)
             }
         }

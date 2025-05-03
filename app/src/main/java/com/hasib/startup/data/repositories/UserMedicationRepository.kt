@@ -21,11 +21,17 @@ class UserMedicationRepository @Inject constructor(private val conceptPropertyDa
         return Result.Success(Unit)
     }
 
-    suspend fun getAllUserMedications(): List<ConceptProperty> {
-        return conceptPropertyDao.getConceptProperties()
+    suspend fun getAllUserMedications(): Result<List<ConceptProperty>> {
+        val conceptProperties = conceptPropertyDao.getConceptProperties()
+        if (conceptProperties.isEmpty()) {
+            return Result.Error(Exception("No added medications found"))
+        }
+
+        return Result.Success(conceptProperties)
     }
 
-    suspend fun deleteUserMedication(conceptProperty: ConceptProperty) {
+    suspend fun deleteUserMedication(conceptProperty: ConceptProperty): Result<List<ConceptProperty>> {
         conceptPropertyDao.delete(conceptProperty.rxcui)
+        return getAllUserMedications()
     }
 }

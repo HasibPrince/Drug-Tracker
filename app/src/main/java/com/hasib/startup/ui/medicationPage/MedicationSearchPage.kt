@@ -41,6 +41,7 @@ import com.hasib.startup.R
 import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.ui.UIState
 import com.hasib.startup.ui.AppBar
+import com.hasib.startup.ui.MedicationItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -168,32 +169,5 @@ private fun SearchBar(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun MedicationItem(conceptProperty: ConceptProperty, onNavigateToDetailsPage: (ConceptProperty) -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .padding(vertical = 12.dp, horizontal = 12.dp)
-            .clickable { onNavigateToDetailsPage(conceptProperty) },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(R.drawable.ic_logo), // Replace with actual icon
-            contentDescription = null,
-            modifier = Modifier.size(32.dp)
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(conceptProperty.name, modifier = Modifier.weight(1f))
-        Spacer(modifier = Modifier.width(6.dp))
-        Text(
-            text = "RxCUI: ${conceptProperty.rxcui}",
-            fontSize = 12.sp,
-            color = Color.Gray
-        )
-        Icon(Icons.Default.KeyboardArrowRight, contentDescription = null)
     }
 }
