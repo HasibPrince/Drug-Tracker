@@ -57,7 +57,7 @@ fun MedicationDetailsPage(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.ic_logo),
+                        painter = painterResource(R.drawable.ic_capsule),
                         contentDescription = null,
                         modifier = Modifier
                             .size(80.dp)

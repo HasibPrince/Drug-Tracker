@@ -99,7 +99,7 @@ fun MedicationSearchPage(
                         items(data.size) { item ->
                             val conceptProperty = data[item]
                             MedicationItem(conceptProperty = conceptProperty, onNavigateToDetailsPage)
-                            Divider()
+                            Spacer(modifier = Modifier.height(2.dp))
                         }
                     }
                 }

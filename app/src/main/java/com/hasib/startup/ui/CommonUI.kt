@@ -1,11 +1,8 @@
 package com.hasib.startup.ui
 
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.AnchoredDraggableState
-import androidx.compose.foundation.gestures.DraggableAnchors
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,15 +17,10 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -45,6 +37,7 @@ fun AppBar(onBack: () -> Unit) {
     ) {
         Row(modifier = Modifier
             .height(56.dp)
+            .padding(top = 2.dp)
             .clickable { onBack() }) {
             Icon(
                 modifier = Modifier
@@ -83,28 +76,34 @@ fun MedicationItem(
     conceptProperty: ConceptProperty,
     onNavigateToDetailsPage: (ConceptProperty) -> Unit
 ) {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
-            .padding(vertical = 12.dp, horizontal = 12.dp)
-            .clip(RoundedCornerShape(22.dp))
-            .clickable { onNavigateToDetailsPage(conceptProperty) },
-        verticalAlignment = Alignment.CenterVertically
+            .background(Color(0xFFF5F5F9))
+            .clip(RoundedCornerShape(8.dp))
     ) {
-        Image(
-            painter = painterResource(R.drawable.ic_logo), // Replace with actual icon
-            contentDescription = null,
-            modifier = Modifier.size(32.dp)
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(conceptProperty.name, modifier = Modifier.weight(1f))
-        Spacer(modifier = Modifier.width(6.dp))
-        Text(
-            text = "RxCUI: ${conceptProperty.rxcui}",
-            fontSize = 12.sp,
-            color = Color.Gray
-        )
-        Icon(Icons.Default.KeyboardArrowRight, contentDescription = null)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .padding(vertical = 12.dp, horizontal = 12.dp)
+                .clickable { onNavigateToDetailsPage(conceptProperty) },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(R.drawable.ic_capsule), // Replace with actual icon
+                contentDescription = null,
+                modifier = Modifier.size(32.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(conceptProperty.name, modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(
+                text = "RxCUI: ${conceptProperty.rxcui}",
+                fontSize = 12.sp,
+                color = Color.Gray
+            )
+            Icon(Icons.Default.KeyboardArrowRight, contentDescription = null)
+        }
     }
 }

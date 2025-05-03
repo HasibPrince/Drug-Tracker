@@ -90,8 +90,13 @@ fun AppContainer(innerPadding: PaddingValues) {
 
         composable<MedicationList> {
             val medicationListViewModel: MedicationListViewModel = hiltViewModel()
-            MedicationListPage(medicationListViewModel){
+            MedicationListPage(medicationListViewModel,{
                 navController.navigate(MedicationSearch)
+            }){
+                navController.navigate(Landing) {
+                    popUpTo(0)
+                    launchSingleTop = true
+                }
             }
         }
 

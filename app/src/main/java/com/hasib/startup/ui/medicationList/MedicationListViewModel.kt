@@ -2,6 +2,7 @@ package com.hasib.startup.ui.medicationList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.data.repositories.UserMedicationRepository
 import com.hasib.startup.domian.model.Result
@@ -9,12 +10,8 @@ import com.hasib.startup.domian.model.isSuccess
 import com.hasib.startup.ui.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,6 +31,18 @@ class MedicationListViewModel @Inject constructor(private val userMedicationRepo
         }
     }
 
+    fun deleteUserMedication(conceptProperty: ConceptProperty) {
+        viewModelScope.launch {
+            val result = userMedicationRepository.deleteUserMedication(conceptProperty)
+            delay(500)
+            handleUsersMedicationResult(result)
+        }
+    }
+
+    fun logout() {
+        FirebaseAuth.getInstance().signOut()
+    }
+
     private fun handleUsersMedicationResult(
         result: Result<List<ConceptProperty>>
     ){
@@ -41,14 +50,6 @@ class MedicationListViewModel @Inject constructor(private val userMedicationRepo
             _usersMedicationsStateFlow.value = UIState.Success((result as Result.Success).data)
         } else {
             _usersMedicationsStateFlow.value = UIState.Error((result as Result.Error).e.message ?: "UnknownError")
-        }
-    }
-
-    fun deleteUserMedication(conceptProperty: ConceptProperty) {
-        viewModelScope.launch {
-            val result = userMedicationRepository.deleteUserMedication(conceptProperty)
-            delay(500)
-            handleUsersMedicationResult(result)
         }
     }
 }
