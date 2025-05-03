@@ -150,7 +150,7 @@ fun MedicationListPage(
                                                 )
                                                 Toast.makeText(
                                                     context,
-                                                    "Item archived",
+                                                    "Item Deleted!",
                                                     Toast.LENGTH_SHORT
                                                 ).show()
                                             }

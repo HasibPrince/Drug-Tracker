@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "267059422276-72ej85q7dntbqf0odakpp7munono54d3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carsoncam",
+            "certificate_hash": "8e7cc7fd89bb9afbc03b1735d9ea1d7b6455d0ca"
+          }
+        },
+        {
           "client_id": "267059422276-veaca5ptts3r1afall6p6cpn7nl5fjql.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -51,6 +51,10 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    lint {
+        disable += "ExpiredTargetSdkVersion"
+    }
 }
 
 dependencies {
