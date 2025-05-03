@@ -1,14 +1,18 @@
-# App Startup 
+# Drug Tracker 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Android Studio](https://img.shields.io/badge/IDE-Android%20Studio-brightgreen)](https://developer.android.com/studio)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.0-blue)](https://kotlinlang.org/)  
 
-A clean and responsive Android application.
+An application provides drug-related info.
 
 ---
 
-App Download link: 
+App Download link: https://drive.google.com/file/d/1Yp-UPCwc9x-pHCVzlDfIIh2vcLzoHdZQ/view?usp=sharing
+
+App Demo link: 
+
+[![Watch the video](https://img.youtube.com/vi/paBPXmHGfKo/1.jpg)](www.youtube.com/watch?v=paBPXmHGfKo)
 
 ## Table of Contents
 
@@ -16,8 +20,7 @@ App Download link:
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)  
 - [Installation](#installation)  
-- [Testing](#testing)  
-- [Contributing](#contributing)  
+- [Testing](#testing)   
 - [License](#license)
 - [Contact](#contact)
 
@@ -27,23 +30,21 @@ App Download link:
 ## Tech Stack
 
 - **Programming Language:** Kotlin
-- **UI Framework:** Material UI Library, XML
-- **Architecture:** MVVM + Clean Architecture
+- **UI Framework:** Material UI Library, Jetpack Compose
+- **Architecture:** MVVM
 - **Dependency Injection:** Hilt
 - **Database:** Room
 - **Asynchronous Tasks:** Kotlin Coroutines
+- **Network Library:** Retrofit
+- **Authentication Service:** Firebase
 
 ## Architecture
 
 This project follows **MVVM (Model-View-ViewModel)** architecture to ensure a clean separation of concerns:
 
 1. **Model**:  
-   - Responsible for handling data operations like fetching contacts related data.  
-   - Example: `Repository` classes.
-
-1. **Domain**:
-   - Defines Models and Data repositories  
-   - Responsible for handling business logic and use cases.    
+   - Responsible for handling data operations like fetching Medicine related data.  
+   - Example: `Repository` classes.  
 
 2. **ViewModel**:  
    - Acts as a bridge between the `Model` and `View`.  
@@ -57,29 +58,42 @@ This project follows **MVVM (Model-View-ViewModel)** architecture to ensure a cl
 
 ```plaintext
 ├── data/                           # Data layer: API, database, repositories
-│   ├── database/                   # Contains Room database related classes    
+    ├── api/                        # Contains remote api service related classes  
+│   ├── database/                   # Contains Room database-related classes    
 │   ├── model/                      # Contains Models for Room   
 │   └── repository/                 # Repository implementations 
-├── di/                             # Dependency injection modules 
-├── domain/                         # Domain layer: Business logic and use cases  
-│   ├── entities/                   # Core domain models
-│   ├── repositories/               # Repository Interfaces  
-│   └── usecase/                    # Use cases for app features  
+├── di/                             # Dependency injection modules  
 ├── ui/                             # Presentation layer: UI and ViewModel  
-│── utils/                          # Utility classes                         
 ├── build.gradle                    # Gradle configuration  
 └── AndroidManifest.xml             # App configuration  
 ```
 
-- **domain:** Contains core business logic, entities, and use cases.
-- **data:** Manages Database calls, data caching, and data mapping.
+- **data:** Manages Remote Api calls, Database calls, data caching, and data mapping.
 - **presentation:** Handles UI and interaction logic.
 - **di:** Dependency injection setup using Hilt.
+
+## Covered Requirents
+
+- Signup/SignIn Using Firebase
+- Searching Medicine List and showing top 10
+- Showing Details of Medicine in Details Page
+- Adding Medicine to User's medication list
+- Showing User's medication list
+- Deleting User's medication item
+
+## Project Config
+- Java Version: Java 21
+- Target Android Sdk: Android 10 (Api Level: 29)
+
+## Improvement Scope If given more time
+
+- Introducing Unit tests
+- Adding Calendar Event
+- UI improvements (Adding nice dialog, fonts etc)
   
 ## Installation
 
-Install the apk from here:
-
+Install the apk from here: https://drive.google.com/file/d/1Yp-UPCwc9x-pHCVzlDfIIh2vcLzoHdZQ/view?usp=sharing
 
 Or
 
