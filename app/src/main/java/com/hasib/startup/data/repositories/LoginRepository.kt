@@ -1,7 +1,7 @@
 package com.hasib.startup.data.repositories
 
 import com.google.firebase.auth.FirebaseAuth
-import com.hasib.startup.domian.model.Result
+import com.hasib.startup.data.model.Result
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import javax.inject.Inject

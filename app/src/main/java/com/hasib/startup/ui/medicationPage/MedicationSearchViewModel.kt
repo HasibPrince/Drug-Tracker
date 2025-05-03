@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.data.repositories.DrugRepository
-import com.hasib.startup.domian.model.Result
-import com.hasib.startup.domian.model.isSuccess
+import com.hasib.startup.data.model.Result
+import com.hasib.startup.data.model.isSuccess
+import com.hasib.startup.ui.ResourceProvider
 import com.hasib.startup.ui.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+import com.hasib.startup.R
 
 @HiltViewModel
 class SearchMedicationViewModel @Inject constructor(private val drugRepository: DrugRepository) :
@@ -54,7 +56,7 @@ class SearchMedicationViewModel @Inject constructor(private val drugRepository: 
                     lastSearchResults = UIState.Success((result as Result.Success).data)
                     emit(lastSearchResults)
                 } else {
-                    emit(UIState.Error((result as Result.Error).e.message ?: "Unknown Error"))
+                    emit(UIState.Error((result as Result.Error).e.message ?: ResourceProvider.getString(R.string.unknownError)))
                 }
             }
 

@@ -52,14 +52,12 @@ fun OnboardingScreen(
         ) {
             Spacer(modifier = Modifier.height(100.dp))
 
-            // Logo in center
             Image(
                 painter = painterResource(id = R.drawable.ic_logo), // Replace with your asset
                 contentDescription = "Logo",
                 modifier = Modifier.size(120.dp)
             )
 
-            // Button and bottom text
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally

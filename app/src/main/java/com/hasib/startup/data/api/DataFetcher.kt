@@ -1,6 +1,6 @@
 package com.hasib.startup.data.api
 
-import com.hasib.startup.domian.model.Result
+import com.hasib.startup.data.model.Result
 import kotlinx.coroutines.CancellationException
 import retrofit2.HttpException
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.hasib.startup.domian.model
+package com.hasib.startup.data.model
 
 sealed class Result<out T> {
     object Loading : Result<Nothing>()

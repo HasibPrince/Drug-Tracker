@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.data.repositories.UserMedicationRepository
-import com.hasib.startup.domian.model.Result
-import com.hasib.startup.domian.model.isSuccess
+import com.hasib.startup.data.model.Result
+import com.hasib.startup.data.model.isSuccess
 import com.hasib.startup.ui.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

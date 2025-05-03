@@ -1,11 +1,12 @@
 package com.hasib.startup.data.repositories
 
+import com.hasib.startup.data.NO_DRUG_DETAILS_FOUND
 import com.hasib.startup.data.api.DrugApiService
 import com.hasib.startup.data.api.handleDataFetch
 import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.data.model.RxTermsResponse
-import com.hasib.startup.domian.model.Result
-import com.hasib.startup.domian.model.isSuccess
+import com.hasib.startup.data.model.Result
+import com.hasib.startup.data.model.isSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -38,9 +39,10 @@ class DrugRepository @Inject constructor(private val drugApiService: DrugApiServ
         if (result.isSuccess()) {
             val drugResponse = (result as Result.Success).data
             if (drugResponse.rxtermsProperties == null) {
-                return Result.Error(Exception("No drug details found"))
+                return Result.Error(Exception(NO_DRUG_DETAILS_FOUND))
             }
         }
+
         return result
     }
 }

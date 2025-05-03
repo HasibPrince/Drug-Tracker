@@ -2,6 +2,7 @@ package com.hasib.startup
 
 import android.app.Application
 import com.google.firebase.FirebaseApp
+import com.hasib.startup.ui.ResourceProvider
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,5 +15,6 @@ class StartupApplication : Application() {
             Timber.plant(Timber.DebugTree())
         }
         FirebaseApp.initializeApp(this)
+        ResourceProvider.setup(this)
     }
 }

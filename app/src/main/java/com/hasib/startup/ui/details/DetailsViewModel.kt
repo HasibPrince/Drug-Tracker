@@ -7,11 +7,10 @@ import com.hasib.startup.data.model.ConceptProperty
 import com.hasib.startup.data.model.RxTermsResponse
 import com.hasib.startup.data.repositories.DrugRepository
 import com.hasib.startup.data.repositories.UserMedicationRepository
-import com.hasib.startup.domian.model.Result
-import com.hasib.startup.domian.model.isSuccess
+import com.hasib.startup.data.model.Result
+import com.hasib.startup.data.model.isSuccess
 import com.hasib.startup.ui.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
